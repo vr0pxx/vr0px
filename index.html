@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vr0px | Cybersecurity</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Cursor personalizado */
+        html {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="%230066ff"/></svg>') 5 5, auto;
+        }
+        
+        /* Efecto de estela del cursor */
+        .cursor-trail {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, rgba(0,102,255,0.4) 0%, rgba(0,102,255,0.1) 30%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            transition: opacity 0.2s ease;
+            opacity: 0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a14;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #000000 0%, #0a0a1a 50%, #000814 100%);
+            overflow: hidden;
+        }
+        
+        .animated-bg::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(0, 60, 180, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 75% 75%, rgba(0, 100, 255, 0.15) 0%, transparent 35%),
+                radial-gradient(circle at 50% 10%, rgba(0, 80, 200, 0.1) 0%, transparent 25%);
+            animation: pulse 20s infinite alternate;
+        }
+        
+        .animated-bg::after {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image: 
+                linear-gradient(rgba(0, 100, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 100, 255, 0.08) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: move 80s linear infinite;
+            opacity: 0.4;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes move {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(30px, 30px) rotate(360deg); }
+        }
+        
+        .main-container {
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 20, 0.3);
+            border: 1px solid rgba(0, 100, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            padding: 2rem 2rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .main-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #0066ff, transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .profile-img {
+            border: 3px solid #0066ff;
+            box-shadow: 0 0 30px rgba(0, 100, 255, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 130px;
+            height: 130px;
+            position: relative;
+        }
+        
+        .profile-img:hover {
+            box-shadow: 0 0 50px rgba(0, 100, 255, 0.6);
+            transform: scale(1.08) rotate(2deg);
+        }
+        
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: linear-gradient(45deg, #0066ff, #00ccff, #0066ff) border-box;
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            animation: rotate 4s linear infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .terminal-header {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 100, 255, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            position: relative;
+        }
+        
+        .terminal-header::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff5f56;
+            box-shadow: 18px 0 0 #ffbd2e, 36px 0 0 #27ca3f;
+        }
+        
+        .social-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            width: 100%;
+            margin-top: 2rem;
+        }
+        
+        .social-item {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            padding: 12px 18px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 100, 255, 0.2);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+        }
+        
+        .social-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 100, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .social-item:hover::before {
+            left: 100%;
+        }
+        
+        .social-item:hover {
+            color: #0066ff;
+            background: rgba(0, 100, 255, 0.1);
+            border-color: #0066ff;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 100, 255, 0.3);
+        }
+        
+        .social-item i {
+            transition: all 0.3s ease;
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .social-item:hover i {
+            transform: scale(1.2) rotate(5deg);
+        }
+        
+        .typewriter {
+            border-right: 2px solid #0066ff;
+            animation: blink-caret 1.5s step-end infinite;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #0066ff; }
+        }
+        
+        .desc-text {
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+            animation-delay: 3s;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #e0e0e0, #0066ff, #e0e0e0);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .glitch {
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+        
+        .glitch:hover {
+            transform: scale(1.1);
+        }
+        
+        .glitch:hover::before,
+        .glitch:hover::after {
+            opacity: 1;
+            animation: glitch 0.3s infinite;
+        }
+        
+        .glitch:hover::before {
+            color: #ff0040;
+            animation-delay: 0.1s;
+        }
+        
+        .glitch:hover::after {
+            color: #00ff80;
+            animation-delay: 0.2s;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Terminal UI Styles */
+        .terminal-ui {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #0066ff;
+            border-radius: 8px;
+            padding: 1rem;
+            width: 80%;
+            max-width: 600px;
+            z-index: 10000;
+            font-family: 'Fira Code', monospace;
+            color: #e0e0e0;
+            display: none;
+        }
+        
+        .terminal-ui::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff5f56;
+            box-shadow: 18px 0 0 #ffbd2e, 36px 0 0 #27ca3f;
+        }
+        
+        .terminal-input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        
+        .terminal-input-container::before {
+            content: 'vr0px@localhost:~$';
+            color: #00ffcc;
+            margin-right: 0.5rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+        }
+        
+        .terminal-ui input {
+            background: transparent;
+            border: none;
+            color: #e0e0e0;
+            font-family: 'Fira Code', monospace;
+            width: 100%;
+            outline: none;
+            font-size: 1rem;
+        }
+        
+        .terminal-ui p {
+            margin: 1rem 0 0;
+            color: #ff0040;
+            font-weight: 500;
+        }
+
+
+        a, button, .social-item, input {
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="%230066ff"/></svg>') 5 5, auto !important;
+    }
+    
+
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+    <div class="animated-bg"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+    
+    <div class="main-container text-center z-10">
+        <!-- Profile Image -->
+        <div class="mb-6 flex justify-center">
+            <img src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUyYTFkN3l4Y3Z6dDJnOHQwOG55Y3B3MXdvMGk2eDRpaG1jbjE4OTBlZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/b018SvPzAauSrfr2X8/giphy-downsized-medium.gif" alt="Profile" class="profile-img rounded-full object-cover">
+        </div>
+        
+        <!-- Terminal Header -->
+        <div class="terminal-header">
+            <div class="code-font text-sm text-gray-400 mb-2 mt-4">$ ./usr/bin/whoami</div>
+            <h1 id="typewriter" class="code-font typewriter inline-block glitch" data-text="vr0px"></h1>
+        </div>
+        
+        <!-- Description -->
+        <p class="desc-text mb-8 px-4">Pentester | Red Team | Bug Bounty Hunter</p>
+        
+        <!-- Social Links Grid -->
+        <div class="social-container">
+            <a href="blog/" class="social-item">
+                  <!--  <i class="fas fa-blog"></i> -->
+                <img src="images/book-alt.png"></img>
+                <span>Blog</span>
+            </a>
+            <a href="#" class="social-item">
+                <!--<i class="fas fa-lock"></i>-->
+                <img src="images/edit.png"></img>
+                <span>Pentesting Notes</span>
+            </a>
+                <a href="bugbounty/" class="social-item">
+                <!--<i class="fab fa-discord"></i>-->
+                <img src="images/bug-slash.png"></img>
+                <span class="text-sm">BugBounty Timeline</span>
+
+            </a>
+            </a>
+            
+                <a href="certifications" class="social-item">
+                <!--<i class="fab fa-discord"></i>-->
+                <img src="images/diploma.png"></img>
+                <span>Certifications</span>
+            </a>
+            <a href="https://discord.com/users/1168256757844418561" class="social-item">
+                <!--<i class="fab fa-discord"></i>-->
+                <img src="images/discord.png"></img>
+                <span>Discord</span>
+            </a>
+            <a href="#" class="social-item">
+                <!--<i class="fab fa-github"></i>-->
+                <img src="images/github.png"></img>
+                <span>GitHub</span>
+            </a>
+            <!--a href="#" class="social-item">
+                <img src="images/twitter-alt.png"></img>
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+            </a>--> 
+            <a href="https://www.linkedin.com/in/c%C3%A9sar-arias-0ba743251/" class="social-item">
+                    <!--<i class="fab fa-linkedin-in"></i>-->
+                <img src="images/linkedin.png"></img>
+                <span>LinkedIn</span>
+            </a>
+            <a href="#" class="social-item">
+                <img src="images/cube.png"></img>
+                <span>Hack The Box</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Terminal UI -->
+    <div class="terminal-ui" id="terminalUI">
+        <div class="terminal-input-container">
+            <input type="text" id="terminalInput">
+        </div>
+        <p id="terminalOutput"></p>
+    </div>
+
+    <script>
+        // Typewriter effect
+        const text = "vr0px";
+        const typewriter = document.getElementById('typewriter');
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < text.length) {
+                typewriter.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 150);
+            } else {
+                typewriter.classList.remove('typewriter');
+            }
+        }
+        
+        // Start the animation after a short delay
+        setTimeout(typeWriter, 1000);
+        
+        // Efecto de estela del cursor mejorado
+        const cursorTrail = document.getElementById('cursorTrail');
+        
+        document.addEventListener('mousemove', function(e) {
+            e.preventDefault();
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            cursorTrail.style.left = x + 'px';
+            cursorTrail.style.top = y + 'px';
+            cursorTrail.style.opacity = '1';
+        });
+        /*
+        // Prevent text selection cursor on social buttons
+        document.querySelectorAll('.social-item').forEach(item => {
+            item.addEventListener('mousemove', function(e) {
+                e.preventDefault();
+            });
+        });
+        */
+        // Ocultar el cursor trail cuando el mouse sale de la ventana
+        document.addEventListener('mouseleave', function() {
+            cursorTrail.style.opacity = '0';
+        });
+        
+        // Particles effect
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 2px;
+                height: 2px;
+                background: #0066ff;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1;
+                left: ${Math.random() * window.innerWidth}px;
+                top: ${window.innerHeight + 10}px;
+                opacity: ${Math.random() * 0.5 + 0.2};
+            `;
+            
+            document.body.appendChild(particle);
+            
+            const duration = Math.random() * 3000 + 2000;
+            particle.animate([
+                { transform: 'translateY(0px)', opacity: particle.style.opacity },
+                { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'linear'
+            }).addEventListener('finish', () => particle.remove());
+        }
+        
+        // Create particles occasionally
+        setInterval(createParticle, 500);
+
+        // Terminal UI for right-click
+        const terminalUI = document.getElementById('terminalUI');
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalOutput = document.getElementById('terminalOutput');
+
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            terminalUI.style.display = 'block';
+            const x = e.clientX;
+            const y = e.clientY;
+            terminalUI.style.left = `${x}px`;
+            terminalUI.style.top = `${y}px`;
+            terminalUI.style.transform = 'translate(-50%, -50%)';
+            terminalInput.focus();
+        });
+
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                terminalOutput.textContent = 'hacking attempt detected';
+                setTimeout(() => {
+                    terminalUI.style.display = 'none';
+                    terminalInput.value = '';
+                    terminalOutput.textContent = '';
+                }, 2000);
+            }
+        });
+
+        // Close terminal UI on click outside
+        document.addEventListener('click', function(e) {
+            if (!terminalUI.contains(e.target) && terminalUI.style.display === 'block') {
+                terminalUI.style.display = 'none';
+                terminalInput.value = '';
+                terminalOutput.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>

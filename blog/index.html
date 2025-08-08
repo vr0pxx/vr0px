@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vr0px | Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Cursor personalizado */
+        html {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="%230066ff"/></svg>') 5 5, auto;
+        }
+        
+        /* Efecto de estela del cursor */
+        .cursor-trail {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, rgba(0,102,255,0.4) 0%, rgba(0,102,255,0.1) 30%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            transition: opacity 0.2s ease;
+            opacity: 0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a14;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #000000 0%, #0a0a1a 50%, #000814 100%);
+            overflow: hidden;
+        }
+        
+        .animated-bg::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(0, 60, 180, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 75% 75%, rgba(0, 100, 255, 0.15) 0%, transparent 35%),
+                radial-gradient(circle at 50% 10%, rgba(0, 80, 200, 0.1) 0%, transparent 25%);
+            animation: pulse 20s infinite alternate;
+        }
+        
+        .animated-bg::after {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image: 
+                linear-gradient(rgba(0, 100, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 100, 255, 0.08) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: move 80s linear infinite;
+            opacity: 0.4;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes move {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(30px, 30px) rotate(360deg); }
+        }
+
+        /* Header Styles */
+        .header {
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 20, 0.3);
+            border-bottom: 1px solid rgba(0, 100, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #0066ff, transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Blog Card Styles */
+        .blog-card {
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 20, 0.3);
+            border: 1px solid rgba(0, 100, 255, 0.2);
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 100, 255, 0.05), transparent);
+            transition: left 0.5s ease;
+            z-index: 1;
+        }
+
+        .blog-card:hover::before {
+            left: 100%;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #0066ff;
+            box-shadow: 0 20px 40px rgba(0, 100, 255, 0.2);
+        }
+
+        .blog-card img {
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Difficulty badges */
+        .difficulty-easy { 
+            background: linear-gradient(45deg, #00ff88, #00cc66);
+            color: #000;
+        }
+        
+        .difficulty-medium { 
+            background: linear-gradient(45deg, #ffaa00, #ff8800);
+            color: #000;
+        }
+        
+        .difficulty-hard { 
+            background: linear-gradient(45deg, #ff4444, #cc2222);
+            color: #fff;
+        }
+        
+        .difficulty-insane { 
+            background: linear-gradient(45deg, #aa00ff, #8800cc);
+            color: #fff;
+        }
+
+        /* OS badges */
+        .os-linux {
+            background: linear-gradient(45deg, #fcc419, #fab005);
+            color: #000;
+        }
+
+        .os-windows {
+            background: linear-gradient(45deg, #0066ff, #0052cc);
+            color: #fff;
+        }
+
+        /* Hide scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 100, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 100, 255, 0.5);
+        }
+
+        /* For Firefox */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 100, 255, 0.3) transparent;
+        }
+
+        /* Modal styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(15px);
+        }
+
+        .modal-content {
+            background: rgba(10, 10, 20, 0.98);
+            border: 1px solid rgba(0, 100, 255, 0.3);
+            border-radius: 16px;
+            margin: 1% auto;
+            padding: 2rem;
+            width: 95%;
+            max-width: 1200px;
+            max-height: 95vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #0066ff, transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: #0066ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #00ccff;
+            transform: scale(1.2);
+        }
+
+        /* Markdown content styles */
+        .markdown-content h1, .markdown-content h2, .markdown-content h3 {
+            color: #0066ff;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-content h1 {
+            font-size: 2.5rem;
+            border-bottom: 2px solid rgba(0, 100, 255, 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .markdown-content h2 {
+            font-size: 2rem;
+        }
+
+        .markdown-content h3 {
+            font-size: 1.5rem;
+        }
+
+        .markdown-content code {
+            background: rgba(0, 100, 255, 0.1);
+            color: #00ccff;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .markdown-content pre {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(0, 100, 255, 0.2);
+            border-radius: 8px;
+            padding: 0;
+            overflow: hidden;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .code-header {
+            background: rgba(0, 100, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 100, 255, 0.2);
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .language-tag {
+            color: #00ccff;
+            font-weight: 500;
+        }
+
+        .copy-btn {
+            background: rgba(0, 100, 255, 0.2);
+            border: 1px solid rgba(0, 100, 255, 0.3);
+            color: #00ccff;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .copy-btn:hover {
+            background: rgba(0, 100, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .copy-btn.copied {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+        }
+
+        .code-content {
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .markdown-content pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Language-specific colors */
+        .lang-bash .language-tag { color: #4CAF50; }
+        .lang-javascript .language-tag { color: #F7DF1E; }
+        .lang-python .language-tag { color: #3776AB; }
+        .lang-html .language-tag { color: #E34F26; }
+        .lang-css .language-tag { color: #1572B6; }
+        .lang-json .language-tag { color: #FF6B35; }
+        .lang-xml .language-tag { color: #FF6600; }
+        .lang-sql .language-tag { color: #336791; }
+        .lang-php .language-tag { color: #777BB4; }
+        .lang-java .language-tag { color: #ED8B00; }
+        .lang-csharp .language-tag { color: #239120; }
+        .lang-cpp .language-tag { color: #00599C; }
+        .lang-c .language-tag { color: #A8B9CC; }
+        .lang-go .language-tag { color: #00ADD8; }
+        .lang-rust .language-tag { color: #CE422B; }
+        .lang-yaml .language-tag { color: #CB171E; }
+        .lang-markdown .language-tag { color: #083FA1; }
+        .lang-powershell .language-tag { color: #012456; }
+        .lang-shell .language-tag { color: #4CAF50; }
+        .lang-dockerfile .language-tag { color: #2496ED; }
+
+        .markdown-content blockquote {
+            border-left: 4px solid #0066ff;
+            margin-left: 0;
+            padding-left: 1rem;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        .markdown-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .markdown-content ul, .markdown-content ol {
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+
+        .markdown-content li {
+            margin: 0.5rem 0;
+        }
+
+        /* Error message styles */
+        .error-message {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid rgba(255, 68, 68, 0.3);
+            color: #ff4444;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        a, button, .blog-card, input {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="%230066ff"/></svg>') 5 5, auto !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <h1 class="code-font text-2xl font-bold text-white">vr0px<span class="text-blue-500">.blog</span></h1>
+                <nav>
+                    <a href="../" class="text-blue-400 hover:text-blue-300 transition-colors">← Back to Home</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                Blog Posts
+            </h2>
+            <p class="text-xl text-gray-300">Pentesting writeups and cybersecurity insights</p>
+        </div>
+
+        <!-- Blog Posts Grid -->
+        <div id="postsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Posts will be loaded here -->
+        </div>
+
+        <!-- Loading indicator -->
+        <div id="loading" class="text-center py-12">
+            <div class="inline-flex items-center px-6 py-3 text-blue-400">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Loading posts...
+            </div>
+        </div>
+
+        <!-- Error message -->
+        <div id="errorMessage" class="error-message" style="display: none;">
+            <h3>Error loading posts</h3>
+            <p>Make sure the server is running and try refreshing the page.</p>
+        </div>
+    </main>
+
+    <!-- Modal for post content -->
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalContent" class="markdown-content">
+                <!-- Post content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cursor trail effect
+        const cursorTrail = document.getElementById('cursorTrail');
+        
+        document.addEventListener('mousemove', function(e) {
+            e.preventDefault();
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            cursorTrail.style.left = x + 'px';
+            cursorTrail.style.top = y + 'px';
+            cursorTrail.style.opacity = '1';
+        });
+
+        document.addEventListener('mouseleave', function() {
+            cursorTrail.style.opacity = '0';
+        });
+
+        // Particles effect
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 2px;
+                height: 2px;
+                background: #0066ff;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1;
+                left: ${Math.random() * window.innerWidth}px;
+                top: ${window.innerHeight + 10}px;
+                opacity: ${Math.random() * 0.5 + 0.2};
+            `;
+            
+            document.body.appendChild(particle);
+            
+            const duration = Math.random() * 3000 + 2000;
+            particle.animate([
+                { transform: 'translateY(0px)', opacity: particle.style.opacity },
+                { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'linear'
+            }).addEventListener('finish', () => particle.remove());
+        }
+
+        setInterval(createParticle, 500);
+
+        // Blog functionality
+        let posts = [];
+
+        function getDifficultyClass(difficulty) {
+            return `difficulty-${difficulty?.toLowerCase() || 'easy'}`;
+        }
+
+        function getOSClass(os) {
+            return `os-${os?.toLowerCase() || 'linux'}`;
+        }
+
+        function createPostCard(post) {
+            const { frontmatter } = post;
+            const difficultyClass = getDifficultyClass(frontmatter.Difficulty);
+            const osClass = getOSClass(frontmatter.OS);
+            const imagePath = frontmatter.image?.path || 'img/default.png';
+            const imageAlt = frontmatter.image?.alt || frontmatter.title;
+            const date = frontmatter.date ? new Date(frontmatter.date).toLocaleDateString() : 'No date';
+            
+            return `
+                <div class="blog-card" onclick="openPost('${post.filename}')">
+                    <div class="relative">
+                        <img src="${imagePath}" 
+                             alt="${imageAlt}" 
+                             class="w-full h-48 object-cover"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg=='">
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <span class="px-2 py-1 rounded-full text-xs font-bold ${osClass}">
+                                ${frontmatter.OS || 'Linux'}
+                            </span>
+                            <span class="px-2 py-1 rounded-full text-xs font-bold ${difficultyClass}">
+                                ${(frontmatter.Difficulty || 'easy').toUpperCase()}
+                            </span>
+                        </div>
+                        ${frontmatter.pin ? '<div class="absolute top-4 left-4 text-yellow-400"><i class="fas fa-thumbtack"></i></div>' : ''}
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <h3 class="text-xl font-bold mb-2 text-white">${frontmatter.title || 'Untitled'}</h3>
+                        <p class="text-gray-400 text-sm mb-4">${date}</p>
+                        <div class="flex flex-wrap gap-2">
+                            ${(frontmatter.tags || []).slice(0, 3).map(tag => 
+                                `<span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs">#${tag}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function loadPosts() {
+            const postsContainer = document.getElementById('postsContainer');
+            const loading = document.getElementById('loading');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            try {
+                const response = await fetch('/api/posts');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                posts = await response.json();
+                
+                loading.style.display = 'none';
+                errorMessage.style.display = 'none';
+                
+                if (posts.length === 0) {
+                    postsContainer.innerHTML = `
+                        <div class="col-span-full text-center py-12">
+                            <div class="text-blue-400 mb-4">
+                                <i class="fas fa-folder-open text-6xl"></i>
+                            </div>
+                            <p class="text-gray-400 text-xl mb-4">No posts found</p>
+                            <p class="text-gray-500 text-sm">Add your markdown files to the 'posts/' directory</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                postsContainer.innerHTML = posts.map(createPostCard).join('');
+                
+            } catch (error) {
+                console.error('Error loading posts:', error);
+                loading.style.display = 'none';
+                errorMessage.style.display = 'block';
+                postsContainer.innerHTML = '';
+            }
+        }
+
+        // Enhanced markdown processing with code blocks
+        function processMarkdownContent(htmlContent) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlContent;
+            
+            // Find all pre tags and enhance them
+            const preElements = tempDiv.querySelectorAll('pre');
+            
+            preElements.forEach((pre, index) => {
+                const code = pre.querySelector('code');
+                if (!code) return;
+                
+                // Extract language from class (e.g., "language-javascript")
+                const classList = code.className;
+                const languageMatch = classList.match(/language-(\w+)/);
+                const language = languageMatch ? languageMatch[1] : 'text';
+                
+                // Get the raw code content
+                const codeContent = code.textContent;
+                
+                // Create the enhanced code block
+                const codeBlockId = `code-block-${index}`;
+                
+                const enhancedBlock = `
+                    <pre class="lang-${language}">
+                        <div class="code-header">
+                            <span class="language-tag">${language.toUpperCase()}</span>
+                            <button class="copy-btn" onclick="copyCode('${codeBlockId}')">
+                                <i class="fas fa-copy"></i>
+                                Copy
+                            </button>
+                        </div>
+                        <div class="code-content">
+                            <code id="${codeBlockId}" class="${code.className}">${code.innerHTML}</code>
+                        </div>
+                    </pre>
+                `;
+                
+                pre.outerHTML = enhancedBlock;
+            });
+            
+            return tempDiv.innerHTML;
+        }
+
+        // Copy code function
+        function copyCode(codeBlockId) {
+            const codeElement = document.getElementById(codeBlockId);
+            const button = event.target.closest('.copy-btn');
+            
+            if (codeElement) {
+                // Get text content without HTML tags
+                const text = codeElement.textContent;
+                
+                // Copy to clipboard
+                navigator.clipboard.writeText(text).then(() => {
+                    // Update button appearance
+                    const originalContent = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    button.classList.add('copied');
+                    
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        button.innerHTML = originalContent;
+                        button.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    button.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        button.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            }
+        }
+
+        async function openPost(filename) {
+            const modal = document.getElementById('postModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Show loading in modal
+            modalContent.innerHTML = `
+                <div class="text-center py-12">
+                    <div class="inline-flex items-center px-6 py-3 text-blue-400">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Loading post...
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            try {
+                const response = await fetch(`/api/posts/${filename}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const post = await response.json();
+                const { frontmatter, content } = post;
+                
+                // Convert markdown to HTML and process code blocks
+                const htmlContent = marked.parse(content);
+                const processedContent = processMarkdownContent(htmlContent);
+                
+                const date = frontmatter.date ? new Date(frontmatter.date).toLocaleDateString() : 'No date';
+                const difficultyClass = getDifficultyClass(frontmatter.Difficulty);
+                const osClass = getOSClass(frontmatter.OS);
+                
+                modalContent.innerHTML = `
+                    <div class="mb-6">
+                        <h1 class="text-3xl font-bold mb-4">${frontmatter.title || 'Untitled'}</h1>
+                        <div class="flex items-center gap-4 text-sm text-gray-400 mb-4 flex-wrap">
+                            <span>By ${frontmatter.author || 'Unknown'}</span>
+                            <span>${date}</span>
+                            <span class="px-2 py-1 rounded text-xs font-bold ${osClass}">${frontmatter.OS || 'Linux'}</span>
+                            <span class="px-2 py-1 rounded text-xs font-bold ${difficultyClass}">${(frontmatter.Difficulty || 'easy').toUpperCase()}</span>
+                            ${frontmatter.pin ? '<span class="text-yellow-400"><i class="fas fa-thumbtack"></i> Pinned</span>' : ''}
+                        </div>
+                        ${frontmatter.categories ? `
+                            <div class="mb-4">
+                                <span class="text-gray-400 text-sm">Categories: </span>
+                                ${frontmatter.categories.map(cat => `<span class="px-2 py-1 bg-gray-700 text-gray-300 rounded text-xs mr-2">${cat}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                        ${frontmatter.tags ? `
+                            <div class="mb-6">
+                                <span class="text-gray-400 text-sm">Tags: </span>
+                                ${frontmatter.tags.map(tag => `<span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs mr-2">#${tag}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="prose prose-invert max-w-none">
+                        ${processedContent}
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Error loading post:', error);
+                modalContent.innerHTML = `
+                    <div class="error-message">
+                        <h3>Error loading post</h3>
+                        <p>Could not load the post content. Please try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('postModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('postModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Load posts when page loads
+        document.addEventListener('DOMContentLoaded', loadPosts);
+
+        // Block right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
