@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Page Not Found</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Cursor personalizado */
+        html {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="%230066ff"/></svg>') 5 5, auto;
+        }
+        
+        /* Efecto de estela del cursor */
+        .cursor-trail {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, rgba(0,102,255,0.4) 0%, rgba(0,102,255,0.1) 30%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            transition: opacity 0.2s ease;
+            opacity: 0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a14;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #000000 0%, #0a0a1a 50%, #000814 100%);
+            overflow: hidden;
+        }
+        
+        .animated-bg::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(0, 60, 180, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 75% 75%, rgba(0, 100, 255, 0.15) 0%, transparent 35%),
+                radial-gradient(circle at 50% 10%, rgba(0, 80, 200, 0.1) 0%, transparent 25%);
+            animation: pulse 20s infinite alternate;
+        }
+        
+        .animated-bg::after {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image: 
+                linear-gradient(rgba(0, 100, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 100, 255, 0.08) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: move 80s linear infinite;
+            opacity: 0.4;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes move {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(30px, 30px) rotate(360deg); }
+        }
+        
+        .main-container {
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 20, 0.3);
+            border: 1px solid rgba(0, 100, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .main-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #0066ff, transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .terminal-header {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 100, 255, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            position: relative;
+        }
+        
+        .terminal-header::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff5f56;
+            box-shadow: 18px 0 0 #ffbd2e, 36px 0 0 #27ca3f;
+        }
+        
+        .glitch {
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+        
+        .glitch:hover {
+            transform: scale(1.1);
+        }
+        
+        .glitch:hover::before,
+        .glitch:hover::after {
+            opacity: 1;
+            animation: glitch 0.3s infinite;
+        }
+        
+        .glitch:hover::before {
+            color: #ff0040;
+            animation-delay: 0.1s;
+        }
+        
+        .glitch:hover::after {
+            color: #00ff80;
+            animation-delay: 0.2s;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        .typewriter {
+            border-right: 2px solid #0066ff;
+            animation: blink-caret 1.5s step-end infinite;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #0066ff; }
+        }
+        
+        .desc-text {
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+            animation-delay: 3s;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #e0e0e0, #0066ff, #e0e0e0);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .social-item {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            padding: 12px 18px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 100, 255, 0.2);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+        }
+        
+        .social-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 100, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .social-item:hover::before {
+            left: 100%;
+        }
+        
+        .social-item:hover {
+            color: #0066ff;
+            background: rgba(0, 100, 255, 0.1);
+            border-color: #0066ff;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 100, 255, 0.3);
+        }
+        
+        .social-item i {
+            transition: all 0.3s ease;
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .social-item:hover i {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        a, button, .social-item, input {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="%230066ff"/></svg>') 5 5, auto !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+    <div class="animated-bg"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+    
+    <div class="main-container text-center z-10">
+        <!-- Terminal Header -->
+        <div class="terminal-header">
+            <div class="code-font text-sm text-gray-400 mb-2 mt-4">$ ./usr/bin/404</div>
+            <h1 id="typewriter" class="code-font typewriter inline-block glitch" data-text="404 - Page Not Found"></h1>
+        </div>
+        
+        <!-- Description -->
+        <p class="desc-text mb-8 px-4">The page you're looking for has vanished into the digital void.</p>
+        
+        <!-- Back to Home Button -->
+        <div class="social-container">
+            <a href="/" class="social-item">
+                <i class="fas fa-home"></i>
+                <span>Return to Home</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Typewriter effect
+        const text = "404 - Page Not Found";
+        const typewriter = document.getElementById('typewriter');
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < text.length) {
+                typewriter.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 150);
+            } else {
+                typewriter.classList.remove('typewriter');
+            }
+        }
+        
+        // Start the animation after a short delay
+        setTimeout(typeWriter, 1000);
+        
+        // Efecto de estela del cursor mejorado
+        const cursorTrail = document.getElementById('cursorTrail');
+        
+        document.addEventListener('mousemove', function(e) {
+            e.preventDefault();
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            cursorTrail.style.left = x + 'px';
+            cursorTrail.style.top = y + 'px';
+            cursorTrail.style.opacity = '1';
+        });
+        
+        // Ocultar el cursor trail cuando el mouse sale de la ventana
+        document.addEventListener('mouseleave', function() {
+            cursorTrail.style.opacity = '0';
+        });
+        
+        // Particles effect
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 2px;
+                height: 2px;
+                background: #0066ff;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1;
+                left: ${Math.random() * window.innerWidth}px;
+                top: ${window.innerHeight + 10}px;
+                opacity: ${Math.random() * 0.5 + 0.2};
+            `;
+            
+            document.body.appendChild(particle);
+            
+            const duration = Math.random() * 3000 + 2000;
+            particle.animate([
+                { transform: 'translateY(0px)', opacity: particle.style.opacity },
+                { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'linear'
+            }).addEventListener('finish', () => particle.remove());
+        }
+        
+        // Create particles occasionally
+        setInterval(createParticle, 500);
+    </script>
+</body>
+</html>
