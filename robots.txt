@@ -1,0 +1,282 @@
+# robots.txt for vr0px.xyz - Global SEO Optimized
+# Professional Penetration Tester & Cybersecurity Expert
+
+User-agent: *
+Allow: /
+
+# Priority Pages - Crawl First
+Crawl-delay: 1
+
+# Sitemaps (Primary and Regional)
+Sitemap: https://vr0px.xyz/sitemap.xml
+Sitemap: https://vr0px.xyz/sitemap-blog.xml
+Sitemap: https://vr0px.xyz/sitemap-services.xml
+Sitemap: https://vr0px.xyz/sitemap-images.xml
+Sitemap: https://vr0px.xyz/sitemap-videos.xml
+
+# Regional Sitemaps
+Sitemap: https://vr0px.xyz/es/sitemap.xml
+Sitemap: https://vr0px.xyz/en/sitemap.xml
+Sitemap: https://vr0px.xyz/us/sitemap.xml
+Sitemap: https://vr0px.xyz/uk/sitemap.xml
+Sitemap: https://vr0px.xyz/de/sitemap.xml
+Sitemap: https://vr0px.xyz/fr/sitemap.xml
+
+# RSS Feeds
+Sitemap: https://vr0px.xyz/feed.xml
+Sitemap: https://vr0px.xyz/en/feed.xml
+Sitemap: https://vr0px.xyz/es/feed.xml
+
+# Security - Disallow sensitive areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /config/
+Disallow: /backup/
+Disallow: /_old/
+Disallow: /tmp/
+Disallow: /temp/
+Disallow: /cache/
+Disallow: /.git/
+Disallow: /.env
+Disallow: /logs/
+
+# Prevent crawling of development/staging
+Disallow: /dev/
+Disallow: /staging/
+Disallow: /test/
+Disallow: /beta/
+
+# Block access to system files
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.txt$
+Allow: /sitemap*.xml$
+Allow: /feed*.xml$
+Allow: /manifest.json$
+Allow: /robots.txt$
+
+# Prevent crawling of duplicate content
+Disallow: /search?
+Disallow: /*?print=
+Disallow: /*?pdf=
+Disallow: /*?share=
+Disallow: /*&print=
+Disallow: /*&pdf=
+Disallow: /*&share=
+
+# Block specific query parameters
+Disallow: /*?utm_*
+Disallow: /*?ref=*
+Disallow: /*?source=*
+Disallow: /*?campaign=*
+Disallow: /*&utm_*
+Disallow: /*&ref=*
+Disallow: /*&source=*
+Disallow: /*&campaign=*
+
+# Allow access to static resources
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /fonts/
+Allow: /icons/
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.webp$
+Allow: /*.svg$
+Allow: /*.ico$
+Allow: /*.woff$
+Allow: /*.woff2$
+Allow: /*.ttf$
+Allow: /*.eot$
+Allow: /*.pdf$
+
+# Priority content for faster indexing
+Allow: /blog/
+Allow: /services/
+Allow: /certifications/
+Allow: /bugbounty/
+Allow: /case-studies/
+Allow: /tools/
+Allow: /about/
+Allow: /contact/
+Allow: /pricing/
+
+# Regional content
+Allow: /es/
+Allow: /en/
+Allow: /us/
+Allow: /uk/
+Allow: /mx/
+Allow: /ar/
+Allow: /co/
+Allow: /br/
+Allow: /de/
+Allow: /fr/
+Allow: /ru/
+
+# Specific User-Agents with tailored rules
+
+# Google Bot - Highest Priority
+User-agent: Googlebot
+Crawl-delay: 1
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /search?
+
+# Bing Bot
+User-agent: bingbot
+Crawl-delay: 1
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+# Yandex (Important for Russian market)
+User-agent: YandexBot
+Crawl-delay: 1
+Allow: /
+Allow: /ru/
+Disallow: /admin/
+Disallow: /private/
+
+# Baidu (For potential Asian expansion)
+User-agent: Baiduspider
+Crawl-delay: 2
+Allow: /
+Disallow: /admin/
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+# Social Media Crawlers
+User-agent: facebookexternalhit
+Allow: /
+Allow: /images/
+Allow: /blog/
+Allow: /services/
+
+User-agent: Twitterbot
+Allow: /
+Allow: /images/
+Allow: /blog/
+Allow: /services/
+
+User-agent: LinkedInBot
+Allow: /
+Allow: /images/
+Allow: /blog/
+Allow: /services/
+Allow: /about/
+Allow: /certifications/
+
+# WhatsApp and Telegram for sharing
+User-agent: WhatsApp
+Allow: /
+Allow: /images/
+Allow: /blog/
+
+User-agent: TelegramBot
+Allow: /
+Allow: /images/
+Allow: /blog/
+
+# Block malicious/unwanted bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: dotbot
+Disallow: /
+
+User-agent: rogerbot
+Disallow: /
+
+# Block aggressive crawlers
+User-agent: SiteAuditBot
+Disallow: /
+
+User-agent: BrandVerity
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: AI2Bot
+Disallow: /
+
+# Archive crawlers - Allow but limit
+User-agent: ia_archiver
+Crawl-delay: 10
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /contact/
+
+User-agent: Wayback
+Crawl-delay: 10
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+# Academic/Research crawlers - Allow
+User-agent: ScholarsBot
+Allow: /
+Allow: /blog/
+Allow: /certifications/
+Crawl-delay: 5
+
+# Security scanners - Block
+User-agent: *scanner*
+Disallow: /
+
+User-agent: *penetration*
+Disallow: /
+
+User-agent: *security*
+Disallow: /
+
+User-agent: *vuln*
+Disallow: /
+
+User-agent: *exploit*
+Disallow: /
+
+# Generic bad bots patterns
+User-agent: *bot*spam*
+Disallow: /
+
+User-agent: *scraper*
+Disallow: /
+
+User-agent: *harvest*
+Disallow: /
+
+# Host specification (optional but recommended)
+Host: https://vr0px.xyz
+
+# Clean-param for better crawling
+# Removes tracking parameters for cleaner URLs
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content
+Clean-param: ref&source&campaign&medium&term&content
+Clean-param: gclid&fbclid&_ga&_gid
+Clean-param: print&pdf&share&format
