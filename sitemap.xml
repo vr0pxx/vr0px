@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+
+  <!-- HOMEPAGE - Global with hreflang -->
+  <url>
+    <loc>https://vr0px.xyz/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    
+    <!-- Alternate languages -->
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://vr0px.xyz/es/"/>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://vr0px.xyz/mx/"/>
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://vr0px.xyz/ar/"/>
+    <xhtml:link rel="alternate" hreflang="es-CO" href="https://vr0px.xyz/co/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://vr0px.xyz/br/"/>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://vr0px.xyz/us/"/>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://vr0px.xyz/uk/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vr0px.xyz/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://vr0px.xyz/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vr0px.xyz/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/"/>
+    
+    <!-- Primary profile image -->
+    <image:image>
+      <image:loc>https://vr0px.xyz/images/vr0px-profile.jpg</image:loc>
+      <image:caption>vr0px - Professional Penetration Tester and Cybersecurity Expert</image:caption>
+      <image:geo_location>Cochabamba, Bolivia</image:geo_location>
+      <image:title>vr0px Cybersecurity Specialist</image:title>
+      <image:license>https://vr0px.xyz/license</image:license>
+    </image:image>
+  </url>
+
+  <!-- ENGLISH VERSIONS -->
+  <url>
+    <loc>https://vr0px.xyz/en/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/"/>
+  </url>
+
+  <!-- REGIONAL VERSIONS - SPAIN -->
+  <url>
+    <loc>https://vr0px.xyz/es/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/"/>
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://vr0px.xyz/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/"/>
+  </url>
+
+  <!-- USA MARKET -->
+  <url>
+    <loc>https://vr0px.xyz/us/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://vr0px.xyz/us/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/"/>
+  </url>
+
+  <!-- UK MARKET -->
+  <url>
+    <loc>https://vr0px.xyz/uk/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://vr0px.xyz/uk/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/"/>
+  </url>
+
+  <!-- BLOG SECTION - MULTILINGUAL -->
+  <url>
+    <loc>https://vr0px.xyz/blog/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/blog/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/blog/"/>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/en/blog/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- BLOG POSTS - HIGH VALUE CONTENT -->
+  <url>
+    <loc>https://vr0px.xyz/blog/complete-guide-penetration-testing-2025/</loc>
+    <lastmod>2025-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/blog/guia-completa-pentesting-2025/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/blog/complete-guide-penetration-testing-2025/"/>
+    <image:image>
+      <image:loc>https://vr0px.xyz/images/blog/pentesting-guide-2025.jpg</image:loc>
+      <image:caption>Complete Guide to Penetration Testing 2025</image:caption>
+      <image:title>Penetration Testing Methodology 2025</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/blog/owasp-top-10-2025-vulnerabilities/</loc>
+    <lastmod>2025-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/blog/owasp-top-10-2025-vulnerabilidades/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/blog/owasp-top-10-2025-vulnerabilities/"/>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/blog/red-team-vs-blue-team-explained/</loc>
+    <lastmod>2025-08-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/blog/bug-bounty-hunting-beginners-guide/</loc>
+    <lastmod>2025-08-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/blog/ethical-hacking-career-path-2025/</loc>
+    <lastmod>2025-08-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- REGIONAL BLOG CONTENT - SPAIN -->
+  <url>
+    <loc>https://vr0px.xyz/es/blog/pentesting-espana-regulaciones/</loc>
+    <lastmod>2025-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/es/blog/cumplimiento-gdpr-auditoria-seguridad/</loc>
+    <lastmod>2025-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- US SPECIFIC CONTENT -->
+  <url>
+    <loc>https://vr0px.xyz/us/blog/sox-compliance-penetration-testing/</loc>
+    <lastmod>2025-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/us/blog/hipaa-security-assessments/</loc>
+    <lastmod>2025-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- SERVICES PAGES -->
+  <url>
+    <loc>https://vr0px.xyz/services/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/services/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/services/"/>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/services/penetration-testing/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/services/pentesting/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/services/penetration-testing/"/>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/services/red-team-assessment/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/services/vulnerability-assessment/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/services/web-application-security-testing/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/services/network-security-audit/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- CERTIFICATIONS -->
+  <url>
+    <loc>https://vr0px.xyz/certifications/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>quarterly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/certifications/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/certifications/"/>
+    <image:image>
+      <image:loc>https://vr0px.xyz/images/certifications/oscp-certificate.jpg</image:loc>
+      <image:caption>OSCP Certification - Offensive Security Certified Professional</image:caption>
+      <image:title>vr0px OSCP Certificate</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://vr0px.xyz/images/certifications/ceh-certificate.jpg</image:loc>
+      <image:caption>CEH Certification - Certified Ethical Hacker</image:caption>
+      <image:title>vr0px CEH Certificate</image:title>
+    </image:image>
+  </url>
+
+  <!-- BUG BOUNTY SECTION -->
+  <url>
+    <loc>https://vr0px.xyz/bugbounty/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/bugbounty/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/bugbounty/"/>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/bugbounty/hall-of-fame/</loc>
+    <lastmod>2025-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/bugbounty/writeups/</loc>
+    <lastmod>2025-08-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- CASE STUDIES -->
+  <url>
+    <loc>https://vr0px.xyz/case-studies/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/case-studies/fintech-penetration-testing/</loc>
+    <lastmod>2025-08-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/case-studies/ecommerce-security-audit/</loc>
+    <lastmod>2025-08-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- TOOLS AND RESOURCES -->
+  <url>
+    <loc>https://vr0px.xyz/tools/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/tools/pentest-checklist/</loc>
+    <lastmod>2025-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/tools/vulnerability-scanner/</loc>
+    <lastmod>2025-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- ABOUT AND CONTACT -->
+  <url>
+    <loc>https://vr0px.xyz/about/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/about/"/>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/contact/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/contact/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/contact/"/>
+  </url>
+
+  <!-- PRICING -->
+  <url>
+    <loc>https://vr0px.xyz/pricing/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/pricing/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vr0px.xyz/en/pricing/"/>
+  </url>
+
+  <!-- PENTESTING NOTES -->
+  <url>
+    <loc>https://vr0px.xyz/notes/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/notes/oscp-preparation/</loc>
+    <lastmod>2025-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/notes/web-app-pentesting/</loc>
+    <lastmod>2025-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/notes/network-pentesting/</loc>
+    <lastmod>2025-08-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- LEGAL PAGES -->
+  <url>
+    <loc>https://vr0px.xyz/privacy-policy/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/terms-of-service/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/disclaimer/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+
+  <!-- RSS FEEDS -->
+  <url>
+    <loc>https://vr0px.xyz/feed.xml</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/en/feed.xml</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- REGIONAL LANDING PAGES FOR SPECIFIC MARKETS -->
+  <url>
+    <loc>https://vr0px.xyz/mx/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://vr0px.xyz/mx/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/"/>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/ar/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://vr0px.xyz/ar/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/"/>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/co/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es-CO" href="https://vr0px.xyz/co/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://vr0px.xyz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/"/>
+  </url>
+
+  <url>
+    <loc>https://vr0px.xyz/br/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://vr0px.xyz/br/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://vr0px.xyz/br/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/"/>
+  </url>
+
+  <!-- GERMANY MARKET -->
+  <url>
+    <loc>https://vr0px.xyz/de/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vr0px.xyz/de/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/"/>
+  </url>
+
+  <!-- FRANCE MARKET -->
+  <url>
+    <loc>https://vr0px.xyz/fr/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://vr0px.xyz/fr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/"/>
+  </url>
+
+  <!-- RUSSIA MARKET -->
+  <url>
+    <loc>https://vr0px.xyz/ru/</loc>
+    <lastmod>2025-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vr0px.xyz/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vr0px.xyz/"/>
+  </url>
+
+</urlset>
